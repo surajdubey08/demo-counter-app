@@ -30,11 +30,11 @@ pipeline{
         stage('Docker build & docker push to Nexus repo'){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'sonar-token', variable: 'nexus-creds')]) {
+                    withCredentials([string(credentialsId: 'nexus-pass', variable: 'nexus-creds')]) {
                         sh ''' 
                         docker build -t 172.105.43.25:8083/springapp:${Version} .
                 
-                        docker login -u admin -p ${nexus-creds} 172.105.43.25:8083
+                        docker login -u admin -p $nexus-creds 172.105.43.25:8083
 
                         docker push 172.105.43.25:8083/springapp:${Version}
 
