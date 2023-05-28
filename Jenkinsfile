@@ -3,11 +3,11 @@ pipeline{
 
     stages {
         stage('Sonar quality status'){
-            agent{
-                docker{
-                    image 'maven'
-                }
-            }
+            // agent{
+            //     docker{
+            //         image 'maven'
+            //     }
+            // }
             steps{
                 script{
                     withSonarQubeEnv(credentialsId: 'sonar-token') {
