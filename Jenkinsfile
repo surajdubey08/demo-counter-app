@@ -30,17 +30,26 @@ pipeline{
         stage('Docker build & docker push to Nexus repo'){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'nexus-password', variable: 'nexus-credentials')]) {
-                        sh ''' 
+                    // withCredentials([string(credentialsId: 'nexus-password', variable: 'nexus-credentials')]) {
+                    //     sh ''' 
+                    //     docker build -t 172.105.43.25:8083/springapp:${Version} .
+                
+                    //     docker login -u admin -p $nexus-credentials 172.105.43.25:8083
+
+                    //     docker push 172.105.43.25:8083/springapp:${Version}
+
+                    //     docker rmi 172.105.43.25:8083/springapp:${Version}
+                    //     '''
+                    // }
+                    sh ''' 
                         docker build -t 172.105.43.25:8083/springapp:${Version} .
                 
-                        docker login -u admin -p $nexus-credentials 172.105.43.25:8083
+                        docker login -u admin -p nexus 172.105.43.25:8083
 
                         docker push 172.105.43.25:8083/springapp:${Version}
 
                         docker rmi 172.105.43.25:8083/springapp:${Version}
                         '''
-                    }
                 }
             }
         }
